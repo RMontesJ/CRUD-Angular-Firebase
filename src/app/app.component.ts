@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ToolbarComponent } from '@components/toolbar/toolbar.component';
 import {MatCardModule} from '@angular/material/card'
+import { ModalService } from '@components/modal/modal.service';
+import { ModalComponent } from '@components/modal/modal.component';
+import { Contact } from '@features/contacts/contact.interfaces';
 
 const MATERIAL_MODULES = [MatCardModule]
 
@@ -14,7 +17,9 @@ const MATERIAL_MODULES = [MatCardModule]
 export class AppComponent {
   title = 'contacts';
 
+private readonly _modalSvc = inject(ModalService);
+
   onClickNewContact():void{
-    console.log("New contact")
+    this._modalSvc.openModal<ModalComponent, Contact>(ModalComponent);
   }
 }
